@@ -1,0 +1,25 @@
+:root {
+  --primary: #0d9488;
+  --primary-hover: #0f766e;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 9999px;
+  background: var(--primary);
+  color: white;
+  text-decoration: none;
+  @media (hover: hover) {
+    &:is(:hover, :focus-within) {
+      background: var(--primary-hover);
+    }
+  }
+  & .icon {
+    --size: 1.25rem;
+    inline-size: var(--size);
+    block-size: var(--size);
+  }
+}

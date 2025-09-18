@@ -1,0 +1,48 @@
+// this is a comment
+@import url('https://test.com/path/to/file.css')
+
+@font-face
+	font-family: 'test'
+	src: local('/test.woff2'), url('test.woff2') format('woff2')
+
+:root
+	$orange: orange // this is also a comment
+	
+*,
+*::before,
+*::after
+	box-sizing: border-box
+
+#preview
+	background: $orange
+	color: #000
+	padding-inline: 1rem
+	border-radius: 0.25rem
+
+	a
+		text-decoration: none
+		color: inherit
+
+		&:hocus
+			color: red
+
+	header
+		color: blue
+
+	main
+		background: #eee
+
+		article
+			color: green
+
+			p
+				font-size: 16px
+
+			.link
+				color: blue
+
+	footer
+		font-size: 12px
+		
+	@media(orientation: portrait)
+		$orange: blue

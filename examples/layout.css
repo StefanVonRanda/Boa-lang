@@ -1,0 +1,32 @@
+:root {
+  --gap: 1.5rem;
+}
+
+.layout {
+  display: grid;
+  gap: var(--gap);
+  padding: 2rem;
+  & header {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  & main {
+    display: grid;
+    gap: var(--gap);
+    & article {
+      background: #fff;
+      border-radius: 1rem;
+      padding: 1.25rem;
+    }
+  }
+  & footer {
+    font-size: 0.875rem;
+    color: #4b5563;
+  }
+  @container (min-width: 50rem) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    & main {
+      grid-column: span 2;
+    }
+  }
+}

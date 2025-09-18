@@ -1,0 +1,18 @@
+{
+  "name": "boa-lang",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "CSS preprocessor for Bun that compiles Boa files to native nested CSS with variables, constants, and hover-safe output.",
+  "author": "StefanVonRanda",
+  "license": "0BSD",
+  "scripts": {
+    "build": "bun build ./src/cli.js --outdir dist --target bun",
+    "dev": "bun run ./src/cli.js",
+    "test": "bun test"
+  },
+  "bin": {
+    "boa": "./src/cli.js"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
