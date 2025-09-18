@@ -567,6 +567,9 @@ function extractComment(content) {
     if (!inSingle && !inDouble) {
       const next = content[i + 1];
       if (ch === '/' && next === '/') {
+        if (isLikelyUrlSegment(content, i)) {
+          continue;
+        }
         const raw = content.slice(i).trim();
         return {
           main: content.slice(0, i).trimEnd(),
@@ -597,6 +600,51 @@ function extractComment(content) {
     main: content.trim(),
     comment: null,
   };
+}
+
+function isLikelyUrlSegment(content, index) {
+  // Ignore // sequences that are part of a URL scheme or url() function values.
+  if (index <= 0) {
+    return false;
+  }
+
+  if (content[index - 1] === ':') {
+    let schemeEnd = index - 1;
+    let schemeStart = schemeEnd - 1;
+    while (schemeStart >= 0 && /[a-zA-Z0-9+.-]/.test(content[schemeStart])) {
+      schemeStart -= 1;
+    }
+    const scheme = content.slice(schemeStart + 1, schemeEnd);
+    if (scheme.length > 0 && /^[a-zA-Z][a-zA-Z0-9+.-]*$/.test(scheme)) {
+      return true;
+    }
+  }
+
+  let balance = 0;
+  for (let i = index - 1; i >= 0; i--) {
+    const ch = content[i];
+    if (ch === ')') {
+      balance += 1;
+      continue;
+    }
+    if (ch === '(') {
+      if (balance === 0) {
+        let j = i - 1;
+        while (j >= 0 && /\s/.test(content[j])) {
+          j -= 1;
+        }
+        let k = j;
+        while (k >= 0 && /[a-zA-Z]/.test(content[k])) {
+          k -= 1;
+        }
+        const funcName = content.slice(k + 1, j + 1).toLowerCase();
+        return funcName === 'url';
+      }
+      balance -= 1;
+    }
+  }
+
+  return false;
 }
 
 function renderComment(comment) {
