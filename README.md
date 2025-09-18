@@ -4,7 +4,8 @@ Indentation-first CSS preprocessor for Bun. Zero dependencies, zero runtime, jus
 
 ## Highlights
 - Familiar `.sass`-style indentation that compiles straight to the CSS Nesting Module.
-- `$name: value` becomes scoped CSS custom properties; add `!const` to inline tokens at compile time.
+- Compiles `$value` style variables to CSS native `--value` variables
+- Add `!const` to inline tokens at compile time (like standard sass variables).
 - Built-in `:hocus` → `:is(:hover, :focus-within)` alias and automatic hover guards for iOS Safari.
 - Handles modern at-rules (`@media`, `@supports`, `@container`) with constant-aware parameters.
 - Ships as a single zero-dependency Bun CLI—drop it in and run.
@@ -42,8 +43,8 @@ See `examples/` for complete inputs and outputs.
 ## Notes
 - Use a single indentation style (spaces or tabs); mixing styles is a compile error.
 - Property declarations need a space after `:` to distinguish from pseudo-classes.
-- Comments are preserved by default; pass `-m`/`--minify` to strip them.
-- Hover media guard can be disabled with `--no-hover-guard` when needed.
+- Minify your output by passing `-m`/`--minify`
+- Disable Hover media guard with `--no-hover-guard` when needed.
 
 ## License
 

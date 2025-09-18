@@ -1,6 +1,6 @@
 # Boa Language Guide
 
-Boa is an indentation-based stylesheet language inspired by the original Sass syntax, designed to compile down to modern nested CSS with first-class support for CSS variables, native nesting, and contemporary features like container queries. The compiler ships as a zero-dependency Bun CLI. This guide covers the language features, compiler behaviour, and CLI usage.
+Boa is an indentation-based stylesheet language inspired by the original Sass syntax, designed to compile down to modern nested CSS with first-class support for CSS variables, native nesting, and contemporary features like container queries. This guide covers the language features, compiler behaviour, and CLI usage.
 
 ## Quick Start
 
@@ -63,15 +63,15 @@ Output (`examples/button.css`):
 
 ### Indentation Rules
 
-- Files must use indentation for structure (`.boa` uses spaces by default). Tabs are supported but the entire file must choose one style; mixing spaces and tabs results in a compilation error.
+- Files must use indentation for structure (`.boa` uses tab by default). Spaces are supported but the entire file must choose one style; mixing spaces and tabs results in a compilation error.
 - Indentation increases by a single step per nesting level. Skipping levels or partial indentation raises an error.
-- Blank lines are ignored; comments may appear on their own line or inline.
+- Blank lines are ignored; comments can appear on their own line or inline.
 
 ### Comments
 
 - Single-line comments begin with `//` and extend to the end of the line.
-- Block comments use `/* ... */` and may appear inline.
-- The compiler emits comments verbatim in formatted mode. Running with `-m`/`--minify` strips them.
+- Block comments use `/* ... */` and can be inlined.
+- The compiler emits comments verbatim in formatted mode. Running with `-m`/`--minify` removes them.
 
 ## Variables and Constants
 
@@ -90,13 +90,13 @@ Boa provides two kinds of symbols starting with `$name`:
 
 ### Constants
 
-- Append `!const` to a declaration to mark it as compile-time only.
+- Append `!const` to a declaration to mark it as compile-time only (like standard sass variables).
 - Constants do not create CSS output; instead, every `$name` reference is replaced with the literal value.
 - Constants obey lexical scope. Declaring inside a rule confines the constant to that block and descendants.
 - Useful for breakpoints, z-index tokens, spacing scales, etc. Example:
 
 ```boa
-$bp-desktop: 60rem !const
+$bp-desktop: 1280px !const
 
 .container
   max-width: $bp-desktop
@@ -158,7 +158,7 @@ Boa adds a convenience pseudo-class `:hocus`, which expands to `:is(:hover, :foc
 - Example container query:
 
 ```boa
-$bp-desktop: 50rem !const
+$bp-desktop: 1280px !const
 
 .layout
   display: grid
@@ -221,13 +221,6 @@ Use these files as references when authoring new `.boa` stylesheets.
 - Keep constants for tokens that should remain literals, and use standard variables for values you expect to override via native CSS custom properties at runtime.
 - Combine Boa with Bun's bundler or a watcher script to rebuild styles on file changes.
 
-## Future Directions
+## Feedback
 
-Planned improvements include:
-
-1. First-class sugar for `@layer`, `@scope`, and `@property` declarations.
-2. Optional default values (`!default`) for CSS-variable declarations.
-3. A watch mode and richer CLI ergonomics.
-4. Modular include / import semantics and expression helpers.
-
-Feedback and contributions are welcome—feel free to prototype new syntax in the `examples/` directory and extend the test suite in `tests/compiler.test.js`.
+Feedback and contributions are welcome — feel free to prototype new syntax in the `examples/` directory and extend the test suite in `tests/compiler.test.js`.
